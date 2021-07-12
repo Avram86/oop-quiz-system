@@ -24,25 +24,67 @@ namespace OopQuizSystem
             switch (question.Type)
             {
                 case QuestionType.SingleSelection:
-                    bool isQuestionAnswered = false;
-                    while (!isQuestionAnswered)
                     {
-                        Console.Write($"Please type the index of the correct answer (numeric value between [{0}, {question.Options.Length - 1}], only 1 value):");
-                        string answer = Console.ReadLine();
-                        if (int.TryParse(answer, out int index))
+                        bool isQuestionAnswered = false;
+                        while (!isQuestionAnswered)
                         {
-                            if (index >= 0 && index < question.Options.Length)
+                            Console.Write($"Please type the index of the correct answer (numeric value between [{0}, {question.Options.Length - 1}], only 1 value):");
+                            string answer = Console.ReadLine();
+                            if (int.TryParse(answer, out int index))
                             {
-                                return new[] { index };
+                                if (index >= 0 && index < question.Options.Length)
+                                {
+                                    return new[] { index };
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Index was outside of the bounds of the options, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine($"Index was outside of the bounds of the options, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                Console.WriteLine($"Value '{answer}' is not a number, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
                             }
                         }
-                        else
+                    }
+                    break;
+
+
+                case QuestionType.MultipleSelection:
+                    {
+                        bool isQuestionAnswered = false;
+
+                        while (!isQuestionAnswered)
                         {
-                            Console.WriteLine($"Value '{answer}' is not a number, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                            Console.Write($"Please type the index of the correct answer (numeric value between [{0}, {question.Options.Length - 1}]");
+                            
+                            string answer = Console.ReadLine();
+
+                            //convert answer in string array
+                            string[] answerArray = answer.Split(",", StringSplitOptions.TrimEntries);
+                            int[] answerArrayInt = new int[answerArray.Length];
+                            int i = 0;
+
+                            foreach(string optionAnser in answerArray)
+                            {
+                                if (int.TryParse(optionAnser, out int index))
+                                {
+                                    if (index >= 0 && index < question.Options.Length)
+                                    {
+                                        answerArrayInt[i] = index;
+                                        i++;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Index was outside of the bounds of the options, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Value '{answer}' is not a number, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                }
+                            }
+                            return answerArrayInt;
                         }
                     }
                     break;

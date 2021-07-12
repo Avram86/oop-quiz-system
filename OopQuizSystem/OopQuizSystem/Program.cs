@@ -11,7 +11,7 @@ namespace OopQuizSystem
             InitializeQuestionsDatabase();
 
             // Alegand un set de intrebari din baza de date, sa putem creea un Quiz
-            Quiz quiz = QuestionsDatabase.GenerateQuiz(2);
+            Quiz quiz = QuestionsDatabase.GenerateQuiz(4);
 
             // John Doe is preparing to answer the quiz
             QuizRespondent johnDoe = new QuizRespondent("John Doe", quiz);
@@ -64,6 +64,43 @@ namespace OopQuizSystem
                         new Option("Windows 10", false),
                         new Option("Mac OS", false),
                         new Option("Linux", true)
+                    }),
+
+                 new Question(
+                    5,
+                    QuestionType.MultipleSelection,
+                    "What is C#?",
+                    new[]
+                    {
+                        new Option("C# is a computer programming language", true),
+                        new Option("C# is one of the most popular programming languages in the world", true),
+                        new Option("C# is the primary language for building Microsoft .NET software applications", true),
+                        new Option("C# is a deprecated language", false),
+                        new Option("C# language is an object-oriented programming language", true)
+                    }),
+
+                  new Question(
+                    6,
+                    QuestionType.MultipleSelection,
+                    "What is an object in C#?",
+                    new[]
+                    {
+                        new Option("Objects are created using class instances", true),
+                        new Option("Objects store real values in computer memory", true),
+                        new Option("This object is also called an instance", true),
+                        new Option("An object is a template that defines what a data structure will look like", false)
+                    }),
+
+                  new Question(
+                    7,
+                    QuestionType.MultipleSelection,
+                    "What is managed or un-managed code?",
+                    new[]
+                    {
+                        new Option("Managed code is directly executed by the Common Language Runtime", true),
+                        new Option("Languages such as C or C++ or Visual Basic are unmanaged", true),
+                        new Option("The code that is developed outside of the .NET framework is known as unmanaged code", true),
+                        new Option("Any language that is written in .NET Framework is managed code", true)
                     })
             });
         }

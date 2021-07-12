@@ -62,21 +62,58 @@ namespace OopQuizSystem.Library
             switch (Type)
             {
                 case QuestionType.SingleSelection:
-                    // 1) there should be a single submitted answer
-                    if (optionsIndices.Length != 1)
                     {
-                        throw new ArgumentException(
-                            $"For single-selection options you can submit only 1 response! The number of responses is {optionsIndices.Length} is invalid.",
-                            nameof(optionsIndices));
-                    }
+                        // 1) there should be a single submitted answer
+                        if (optionsIndices.Length != 1)
+                        {
+                            throw new ArgumentException(
+                                $"For single-selection options you can submit only 1 response! The number of responses is {optionsIndices.Length} is invalid.",
+                                nameof(optionsIndices));
+                        }
 
-                    // 2) The response should point to a correct option
-                    int answerIndex = optionsIndices[0];
-                    if (answerIndex >= 0 &&
-                        answerIndex < Options.Length &&
-                        Options[answerIndex].IsCorrect)
+                        // 2) The response should point to a correct option
+                        int answerIndex = optionsIndices[0];
+                        if (answerIndex >= 0 &&
+                            answerIndex < Options.Length &&
+                            Options[answerIndex].IsCorrect)
+                        {
+                            Score = 1;
+                        }
+                    }
+                    break;
+
+
+                case QuestionType.MultipleSelection:
                     {
-                        Score = 1;
+                        //1) calculate the number of correct options
+                        decimal nrOfCorrectOptions = 0M;
+                        foreach(var option in this.Options)
+                        {
+                            if (option.IsCorrect)
+                                nrOfCorrectOptions++;
+                        }
+                        //=>optionsIndices.Length=nrOfCorrectOptions
+
+
+                        //2)calculate score
+                        if(optionsIndices.Length == nrOfCorrectOptions)
+                        {
+                            Score = 1;
+                        }
+                        else
+                        {
+                            //score/option=1/nrOfCorrectOptions
+
+                            foreach(var index in optionsIndices)
+                            {
+                                if (Options[index].IsCorrect)
+                                {
+                                    //erro Score=0 => turn nrOfCorrectOptions from int to decimal 
+                                    Score += Math.Round(1 / nrOfCorrectOptions, 2);
+                                }
+                            }
+                        }
+
                     }
                     break;
             }
