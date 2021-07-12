@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace OopQuizSystem.Library
 {
-    public enum QuestionType
+    public abstract class GraphicalInterfaceQuestionRendererFactory
     {
-        SingleSelection = 0,
-        MultipleSelection = 1
+        public abstract GraphicalInterfaceQuestionRenderer Create(Question question);
     }
 }

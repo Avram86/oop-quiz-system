@@ -49,9 +49,30 @@ namespace OopQuizSystem.Library
 
             foreach (Question q in Quiz.Questions)
             {
-                int[] selectedOptions = gui.RenderQuestionAndGetResponse(q);
+                GraphicalInterfaceQuestionRenderer renderer = null;
 
-                q.EvaluateAnswer(selectedOptions);
+                foreach (GraphicalInterfaceQuestionRendererFactory factory in gui.QuestionRendererFactories)
+                {
+                    renderer = factory.Create(q);
+                    if (renderer != null)
+                    {
+                        break;
+                    }
+                }
+                if (renderer != null)
+                {
+                    renderer.Render();
+
+                    int[] selectedOptions = renderer.GetResponse();
+
+                    q.EvaluateAnswer(selectedOptions);
+                }
+                else
+                {
+                    //GUI cannot display the question!
+                    throw new NotSupportedException($"The graphical user interface is not capable of rendering questions of type {q.GetType()}");
+                }
+                
             }
 
             Quiz.UpdateScore();

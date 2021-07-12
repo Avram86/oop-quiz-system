@@ -21,11 +21,10 @@ namespace OopQuizSystem
 
         private static void InitializeQuestionsDatabase()
         {
-            QuestionsDatabase.Initialize(new[]
+            QuestionsDatabase.Initialize(new Question[]
             {
-                new Question(
+                new SingleSelectionQuestion(
                     1,
-                    QuestionType.SingleSelection,
                     "What is the best language?",
                     new[]
                     {
@@ -34,9 +33,8 @@ namespace OopQuizSystem
                         new Option("Phyton", false),
                     }),
 
-                new Question(
+                new SingleSelectionQuestion(
                     2,
-                    QuestionType.SingleSelection,
                     "What is the best database system?",
                     new[]
                     {
@@ -45,9 +43,8 @@ namespace OopQuizSystem
                         new Option("Oracle", false)
                     }),
 
-                new Question(
+                new SingleSelectionQuestion(
                     3,
-                    QuestionType.SingleSelection,
                     "What is the best mobile platform?",
                     new[]
                     {
@@ -55,9 +52,8 @@ namespace OopQuizSystem
                         new Option("iOS", false)
                     }),
 
-                new Question(
+                new SingleSelectionQuestion(
                     4,
-                    QuestionType.SingleSelection,
                     "What is the best OS?",
                     new[]
                     {
@@ -66,9 +62,8 @@ namespace OopQuizSystem
                         new Option("Linux", true)
                     }),
 
-                 new Question(
+                 new MultipleSelectionQuestion(
                     5,
-                    QuestionType.MultipleSelection,
                     "What is C#?",
                     new[]
                     {
@@ -79,9 +74,8 @@ namespace OopQuizSystem
                         new Option("C# language is an object-oriented programming language", true)
                     }),
 
-                  new Question(
+                  new MultipleSelectionQuestion(
                     6,
-                    QuestionType.MultipleSelection,
                     "What is an object in C#?",
                     new[]
                     {
@@ -91,9 +85,8 @@ namespace OopQuizSystem
                         new Option("An object is a template that defines what a data structure will look like", false)
                     }),
 
-                  new Question(
+                  new MultipleSelectionQuestion(
                     7,
-                    QuestionType.MultipleSelection,
                     "What is managed or un-managed code?",
                     new[]
                     {
