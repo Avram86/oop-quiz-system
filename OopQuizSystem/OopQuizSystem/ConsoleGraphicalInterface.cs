@@ -57,34 +57,48 @@ namespace OopQuizSystem
                         while (!isQuestionAnswered)
                         {
                             Console.Write($"Please type the index of the correct answer (numeric value between [{0}, {question.Options.Length - 1}]");
-                            
+
                             string answer = Console.ReadLine();
-
-                            //convert answer in string array
-                            string[] answerArray = answer.Split(",", StringSplitOptions.TrimEntries);
-                            int[] answerArrayInt = new int[answerArray.Length];
-                            int i = 0;
-
-                            foreach(string optionAnser in answerArray)
+                            
+                            if (!string.IsNullOrWhiteSpace(answer))
                             {
-                                if (int.TryParse(optionAnser, out int index))
+                                //convert answer in string array
+                                string[] answerArray = answer.Split(",", StringSplitOptions.TrimEntries);
+                                int[] answerArrayInt = new int[answerArray.Length];
+                                int i = 0;
+
+                                foreach (string optionAnser in answerArray)
                                 {
-                                    if (index >= 0 && index < question.Options.Length)
+                                    if (int.TryParse(optionAnser, out int index))
                                     {
-                                        answerArrayInt[i] = index;
-                                        i++;
+                                        if (index >= 0 && index < question.Options.Length)
+                                        {
+                                            answerArrayInt[i] = index;
+                                            i++;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Index was outside of the bounds of the options, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                        }
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"Index was outside of the bounds of the options, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
+                                        //error=not allowing you to rething and retype your answer
+                                        //ex:
+                                        //Please type the index of the correct answer (numeric value between [0, 3]a,c,b
+                                        //Value 'a,c,b ' is not a number, you must type a numeric value between[0, 3]
+                                        //Value 'a,c,b ' is not a number, you must type a numeric value between[0, 3]
+                                        //Value 'a,c,b ' is not a number, you must type a numeric value between[0, 3]
+                                        Console.WriteLine($"Value '{answer}' is not a number, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
                                     }
                                 }
-                                else
-                                {
-                                    Console.WriteLine($"Value '{answer}' is not a number, you must type a numeric value between [{0}, {question.Options.Length - 1}]");
-                                }
+                                return answerArrayInt;
                             }
-                            return answerArrayInt;
+                            else 
+                            {
+                                isQuestionAnswered = false ; 
+                            }
+                           
                         }
                     }
                     break;
