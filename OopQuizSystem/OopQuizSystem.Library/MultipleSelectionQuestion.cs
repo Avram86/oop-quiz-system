@@ -46,7 +46,7 @@ namespace OopQuizSystem.Library
             }
             //we have at least one correct answer
 
-            decimal scoreFraction = decimal.One / nrOfCorrectOptions;
+            decimal scoreFraction = Math.Round(decimal.One / nrOfCorrectOptions,2);
 
 
             //=>optionsIndices.Length=nrOfCorrectOptions

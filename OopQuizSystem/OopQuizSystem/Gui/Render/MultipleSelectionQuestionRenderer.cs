@@ -57,7 +57,7 @@ namespace OopQuizSystem.Gui.Render
                         {
                             indices[i] = int.Parse(answerParts[i]);
                         }
-
+                        return indices;
                     }
                 }
 
